@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/css-head :: css-head">
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 400px;height:400px;"></div>
+	
+	<div id="city" style="width: 400px;height:400px;"></div>
+	<script th:src="@{/bower_components/echarts/echarts.js}"></script>
+<script th:src="@{/bower_components/echarts/map/js/china.js}"></script>
+<script th:src="@{/bower_components/echarts/map/js/province/guangdong.js}"></script>
+<script th:src="@{/bower_components/jquery/dist/jquery.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+myChart.showLoading();
+var msg = [[${msg}]];
+alert(msg);
+//$.each(msg, function(i, obj) {
+//	alert(obj.name + ">" + obj.value)
+//});
+var dataList=[
+            {name:"南海诸岛",value:0},
+            {name: '北京', value: randomValue()},
+            {name: '天津', value: randomValue()},
+            {name: '上海', value: randomValue()},
+            {name: '重庆', value: randomValue()},
+            {name: '河北', value: randomValue()},
+            {name: '河南', value: randomValue()},
+            {name: '云南', value: randomValue()},
+            {name: '辽宁', value: randomValue()},
+            {name: '黑龙江', value: randomValue()},
+            {name: '湖南', value: randomValue()},
+            {name: '安徽', value: randomValue()},
+            {name: '山东', value: randomValue()},
+            {name: '新疆', value: randomValue()},
+            {name: '江苏', value: randomValue()},
+            {name: '浙江', value: randomValue()},
+            {name: '江西', value: randomValue()},
+            {name: '湖北', value: randomValue()},
+            {name: '广西', value: randomValue()},
+            {name: '甘肃', value: randomValue()},
+            {name: '山西', value: randomValue()},
+            {name: '内蒙古', value: randomValue()},
+            {name: '陕西', value: randomValue()},
+            {name: '吉林', value: randomValue()},
+            {name: '福建', value: randomValue()},
+            {name: '贵州', value: randomValue()},
+            {name: '广东', value: randomValue()},
+            {name: '青海', value: randomValue()},
+            {name: '西藏', value: randomValue()},
+            {name: '四川', value: randomValue()},
+            {name: '宁夏', value: randomValue()},
+            {name: '海南', value: randomValue()},
+            {name: '台湾', value: randomValue()},
+            {name: '香港', value: randomValue()},
+            {name: '澳门', value: randomValue()}
+        ]
+        
+        function randomValue() {
+            return Math.round(Math.random()*1000);
+        }
+        option = {
+            tooltip: {
+                    formatter:function(params,ticket, callback){
+                        return params.seriesName+'<br />'+params.name+'：'+params.value
+                    }//数据格式化
+                },
+            visualMap: {
+                min: 0,
+                max: 1500,
+                left: 'left',
+                top: 'bottom',
+                text: ['高','低'],//取值范围的文字
+				calculable: true,
+                inRange: {
+                    color: ['#e0ffff', '#006edd']//取值范围的颜色
+                },
+                show:true//图注
+            },
+            geo: {
+                map: 'china',
+                roam: false,//不开启缩放和平移
+                zoom:1.23,//视角缩放比例
+                label: {
+                    normal: {
+                        show: true,
+                        fontSize:'10',
+                        color: 'rgba(0,0,0,0.7)'
+                    }
+                },
+                itemStyle: {
+                    normal:{
+                        borderColor: 'rgba(0, 0, 0, 0.2)'
+                    },
+                    emphasis:{
+                        areaColor: '#F3B329',//鼠标选择区域颜色
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowBlur: 20,
+                        borderWidth: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            },
+            series : [
+                {
+                    name: '商户数',
+                    type: 'map',
+                    geoIndex: 0,
+                    data:msg
+                }
+            ]
+        };
+        myChart.setOption(option);
+        myChart.on('click', function (params) {
+            //alert(params.name);
+            $.getScript(/*[[@{/bower_components/echarts/map/js/province/guangdong.js}]]*/);
+			cityChart.setOption(option);
+        });
+	myChart.hideLoading();
+      /*  setTimeout(function () {
+            myChart.setOption({
+                series : [
+                    {
+                        name: '信息量',
+                        type: 'map',
+                        geoIndex: 0,
+                        data:dataList
+                    }
+                ]
+            });
+        },1000)*/
+
+		var cityChart = echarts.init(document.getElementById('city'));
+		cityChart.showLoading();
+
+var dataList=[
+            {name: '广州市', value: randomValue()},
+            {name: '深圳市', value: randomValue()},
+            {name: '佛山市', value: randomValue()},
+            {name: '东莞市', value: randomValue()},
+            {name: '中山市', value: randomValue()},
+            {name: '珠海市', value: randomValue()},
+            {name: '江门市', value: randomValue()}
+        ]
+        
+        function randomValue() {
+            return Math.round(Math.random()*1000);
+        }
+        option = {
+            tooltip: {
+                    formatter:function(params,ticket, callback){
+                        return params.seriesName+'<br />'+params.name+'：'+params.value
+                    }//数据格式化
+                },
+            visualMap: {
+                min: 0,
+                max: 1500,
+                left: 'left',
+                top: 'bottom',
+                text: ['高','低'],//取值范围的文字
+                inRange: {
+                    color: ['#e0ffff', '#006edd']//取值范围的颜色
+                },
+                show:true//图注
+            },
+            geo: {
+                map: '广东',
+                roam: false,//不开启缩放和平移
+                zoom:1.23,//视角缩放比例
+                label: {
+                    normal: {
+                        show: true,
+                        fontSize:'10',
+                        color: 'rgba(0,0,0,0.7)'
+                    }
+                },
+                itemStyle: {
+                    normal:{
+                        borderColor: 'rgba(0, 0, 0, 0.2)'
+                    },
+                    emphasis:{
+                        areaColor: '#F3B329',//鼠标选择区域颜色
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowBlur: 20,
+                        borderWidth: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            },
+            series : [
+                {
+                    name: '商户数',
+                    type: 'map',
+                    geoIndex: 0,
+                    data:dataList
+                }
+            ]
+        };
+        
+        cityChart.on('click', function (params) {
+            alert(params.name);
+        });
+		cityChart.hideLoading();
+    </script>
+</body>
+</html>

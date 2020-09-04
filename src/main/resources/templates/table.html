@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--suppress HtmlUnknownTag -->
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>AppStore 价格趋势</title>
+    <style type="text/css">
+        .tabtop13 {
+            margin-top: 13px;
+        }
+
+        .tabtop13 td {
+            background-color: #ffffff;
+            height: 25px;
+            line-height: 150%;
+        }
+
+        .font-center {
+            text-align: center
+        }
+
+        .btbg {
+            background: #e9faff !important;
+        }
+
+        .btbg1 {
+            text-align: center;
+            background: #f2fbfe !important;
+        }
+
+        .btbg2 {
+            background: #f3007f !important;
+        }
+
+        .btbg3 {
+            background: #d0f3eb !important;
+            text-align: center
+        }
+
+        .btbg4 {
+            background: #f3e7f0 !important;
+            text-align: center
+        }
+
+        .biaoti {
+            font-family: 微软雅黑, serif;
+            font-size: 26px;
+            font-weight: bold;
+            border-bottom: 1px dashed #CCCCCC;
+            color: #255e95;
+        }
+
+        .titfont {
+            font-family: 微软雅黑, serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #255e95;
+            background-color: #e9faff;
+        }
+    </style>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td align="center" class="biaoti" height="60">AppStore 价格趋势表</td>
+    </tr>
+    <tr>
+        <td align="right" height="25">2017-01-02---2017-05-02</td>
+    </tr>
+</table>
+<!--  -->
+<table width="100%" border="0" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
+    <tr>
+        <td width="5%" class="btbg font-center titfont">价格趋势</td>
+        <td width="20%" class="btbg font-center titfont">APP名称</td>
+        <td width="5%" class="btbg font-center titfont">最新价格</td>
+        <td width="10%" class="btbg font-center titfont">当前版本</td>
+        <td width="15%" class="btbg font-center titfont">更新日期</td>
+        <td width="25%" class="btbg font-center titfont">支持语言</td>
+    </tr>
+    
+    <tr th:each="order,star:${downPriceMap}">
+        <span th:if="${star.index} == 0">
+            <td th:rowspan="${star.size}"><span th:text="${order.name}"></span></td>
+            <td><span th:text="${order.price}">商品名称</span></td>
+            <td><span th:text="${order.version}">商品价格</span></td>
+            <td><span th:text="${order.createTime}">商品价格</span></td>
+            <td><span th:text="${order.updateTime}">商品价格</span></td>
+            <td><span th:text="${order.language}">商品价格</span></td>
+        </span>
+        <span th:if="${star.index} != 0">
+            <td><span th:text="${order.price}">商品名称</span></td>
+            <td><span th:text="${order.version}">商品价格</span></td>
+            <td><span th:text="${order.createTime}">商品价格</span></td>
+            <td><span th:text="${order.updateTime}">商品价格</span></td>
+            <td><span th:text="${order.language}">商品价格</span></td>
+        </span>
+    </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
+     <thead>
+         <tr>
+             <th>OrderNr</th>
+             <th>Date</th>
+             <th>Article Number</th>
+             <th>ArticleName</th>
+         </tr>
+     </thead>
+     <tr th:each="order,star:${orderList}">
+        <span th:if="${star.index} == 0">
+            <td th:text="${order.orderNumber}" ></td>
+                <td th:text="${order.orderDate}" th:colspan="${order.articles.size()}"></td>
+                <td th:text="${order.articles.size()}" ></td>
+        </span>
+    </tr>
+     <!-- 
+     <tbody>
+        <div th:remove="tag" th:each="order,star:${orderList}">
+            <tr>
+                <td th:text="${order.orderNumber}" th:rowspan="${order.articles.size()}"></td>
+                <td th:text="${order.orderDate}" th:rowspan="${order.articles.size()}"></td>
+                <td th:text="${order.articles[0].number}"></td>
+                <td th:text="${order.articles[0].name}"></td>
+            </tr>
+            <tr th:each="article,stats:${order.articles}" th:if="${!stats.first}">
+                <td th:text="${article.number}"></td>
+                <td th:text="${article.name}"></td>
+            </tr>
+        </div>
+     </tbody> -->
+</table>
+</body>
+</html>

@@ -1,0 +1,11 @@
+server:
+  port: 9080
+spring:
+    thymeleaf:
+        cache: false
+        mode: LEGACYHTML5
+    http:
+        multipart:
+            maxFileSize: 100Mb
+            maxRequestSize: 100Mb
+  

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/css-head :: css-head">
+</head>
+<body>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+  	GC日志分析
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">GC日志分析</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<h1>欢迎，使用过程中有问题请联系夏志强，谢谢</h1>
+<!-- 上传组件 -->
+<div class="row">
+        <div class="col-md-6">
+          <!-- AREA CHART -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">上传GC日志文件</h3>
+            </div>
+            <div class="box-body">
+              <div class="col-sm-10">
+              	<form method="POST" action="/upload" enctype="multipart/form-data">
+				    <input type="file" class="form-control file" name="imgfile" value="" id="imgfile" placeholder="请选择文件">
+				    <button type="submit" class="btn btn-success"  id="imgSubmit" >上传</button>
+				</form>
+			  </div>
+            </div>
+          </div>
+      </div>
+</div>
+<!-- 上传组件-->
+</body>
+</html>
