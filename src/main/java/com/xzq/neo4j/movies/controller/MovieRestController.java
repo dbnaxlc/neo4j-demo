@@ -20,7 +20,7 @@ public class MovieRestController {
 	
 	@GetMapping("/index")
     public ModelAndView require() {
-        return new ModelAndView("/graph");
+        return new ModelAndView("page/graph");
     }
 	
     @GetMapping("/graph")
